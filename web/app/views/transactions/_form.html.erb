@@ -1,0 +1,33 @@
+<%= form_for @transaction do |f| %>
+   <% if @transaction.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@transaction.errors.count, "error") %> stopped this transaction from saving correctly:
+      </h2>
+      <ul>
+        <% @transaction.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <p>
+    <%= f.label :date %>
+    <%= date_select :transaction, :date, prompt:true %>
+  </p>
+  <p>
+    <%= f.label :category %>
+    <%= f.collection_select(:category_id, Category.all, :id, :name, prompt:true) %>
+  </p>
+  <p>
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </p>
+  <p>
+    <%= f.label :amount %>
+    <%= f.text_field :amount %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>

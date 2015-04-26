@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Railsapp</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<header>
+  <ul>
+    <li><%= link_to 'Categories', categories_path %></li>
+    <li><%= link_to 'Transactions', transactions_path %></li>
+    <li><%= link_to 'Accounts', accounts_path %></li>
+  </ul>
+</header>
+<%= yield %>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+<p>
+  <strong>Name:</strong>
+  <%= @account.name %>
+</p>
+<p>
+  <strong>Type:</strong>
+  <%= @account.account_type.humanize %>
+</p>
+<p>
+  <strong>Active:</strong>
+  <%= @account.active %>
+</p>
+
+<%= link_to 'Edit', edit_account_path(@account) %> |
+<%= link_to 'Back', accounts_path %>

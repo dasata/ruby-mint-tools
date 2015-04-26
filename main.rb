@@ -92,7 +92,7 @@ output.print "\t"
 end
 output.print "\n"
 
-categories.sort_by { |key, value| key}.each do |key, value|
+categories.sort.each do |key, value|
   ar = value.summary_array
 
   output.printf("%20.20s\t", key)

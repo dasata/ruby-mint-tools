@@ -1,0 +1,19 @@
+<p>
+  <strong>Date:</strong>
+  <%= @transaction.date %>
+</p>
+<p>
+  <strong>Category:</strong>
+  <%= @transaction.category.name %>
+</p>
+<p>
+  <strong>Amount:</strong>
+  $<%= @transaction.amount %>
+</p>
+<p>
+  <strong>Description:</strong>
+  <%= @transaction.description %>
+</p>
+<p>
+  <%= link_to 'Back to transactions', transactions_path %>
+</p>

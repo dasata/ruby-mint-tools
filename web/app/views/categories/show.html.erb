@@ -1,0 +1,19 @@
+<p>
+  <strong>Name:</strong>
+  <%= @category.name %>
+  </p>
+<p>
+  <strong># of transactions:</strong>
+  <%= @category.transactions.count %>
+</p>
+<table>
+  <% @category.monthly_amounts.each do |set| %>
+    <tr>
+      <td><%= sprintf("%d/%d", set['month'], set['year']) %></td>
+      <td>$<%= set['total'] %>
+    </tr>
+  <% end %>
+</table>
+<p>
+  <%= link_to 'Back to categories', categories_path %>
+</p>

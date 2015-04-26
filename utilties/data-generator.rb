@@ -70,9 +70,7 @@ File.open(config_filepath) do |input_file|
   config = JSON.parse(input_file.readlines.join)
   start_date = Date.strptime(config['start_date'], '%m/%d/%Y')
   end_date = Date.strptime(config['end_date'], '%m/%d/%Y')
-  #input_file.each_line do |line|
   config['categories'].each do |cat|
-    #categories.push(line.split(',').each { |item| item.strip! }) 
     categories.push(cat)
   end
 end
@@ -84,7 +82,6 @@ File.open(output_filepath, 'w') do |output_file|
   output_file.puts '"Date","Description","Amount","Transaction Type","Category"'
 
   categories.each do |cat|
-    #monthly_limit = cat[1].to_i
     monthly_limit = cat['monthly_transactions']
 
     for d in (start_date..end_date)
@@ -97,10 +94,8 @@ File.open(output_filepath, 'w') do |output_file|
         num_transactions += 1
       end 
       
-      #amount = rand(cat[2].to_i..cat[3].to_i)
       amount = rand(cat['min_amount']..cat['max_amount'])
       type = amount >= 0 ? 'debit' : 'credit' 
-      #output_file.puts sprintf('"%s","%s","%2g","%s","%s"', d.strftime('%m/%d/%Y'), cat[0], amount, type, cat[0]) 
       output_file.puts sprintf('"%s","%s","%2g","%s","%s"', d.strftime('%m/%d/%Y'), cat['category'], amount, type, cat['category']) 
     end
   end

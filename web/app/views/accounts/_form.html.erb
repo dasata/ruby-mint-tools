@@ -1,0 +1,29 @@
+<%= form_for(@account) do |f| %>
+  <% if @account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@account.errors.count, "error") %> prohibited this account from being saved:</h2>
+
+      <ul>
+      <% @account.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <p>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :account_type %>
+    <%= f.select :account_type, options_for_select(Account.account_types.collect { |a| [a[0].titleize, a[0]] }, selected: @account.account_type), {} %>
+  </p>
+  <p>
+    <%= f.label :active %>
+    <%= f.check_box :active %>
+  </p>
+ 
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
