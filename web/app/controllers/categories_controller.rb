@@ -42,9 +42,18 @@ class CategoriesController < ApplicationController
     redirect_to categories_path
   end
 
+  def monthly_transactions
+    @category = get_selected_category 
+    @transactions = @category.transactions_for_month(monthly_transactions_params[:month], monthly_transactions_params[:year])
+  end
+
   private 
     def category_params
       return params.require(:category).permit(:name, :parent_id)
+    end
+
+    def monthly_transactions_params
+      return params.permit(:month, :year)
     end
 
     def get_selected_category

@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
   resources :categories, :transactions, :accounts
 
+  get '/categories/:id/transactions/:year/:month', to: 'categories#monthly_transactions', as: :monthly_category_transactions
+
   # You can have the root of your site routed with "root"
   root 'welcome#index'
 

@@ -22,4 +22,11 @@ class Category < ActiveRecord::Base
 
     return results
   end
+
+  def transactions_for_month(month, year)
+    return self.transactions
+      .where("date_part('month', date) = :month AND date_part('year', date) = :year", 
+            { month: month, year: year })
+      .order(:date)
+  end
 end
