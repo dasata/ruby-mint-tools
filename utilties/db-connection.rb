@@ -21,9 +21,9 @@ class DbConnection
 
   def prepare_statements
     @connection.prepare('select_transaction', 'select count(*) from transactions where date = $1 and ' +
-      'amount = $2 and original_description = $3 and type = $4')
+      'amount = $2 and original_description = $3 and transaction_type = $4')
     @connection.prepare('insert_transaction', 'insert into transactions (date, description, amount, ' +
-      'category_id, original_description, type, account_id, created_at, updated_at) ' +
+      'category_id, original_description, transaction_type, account_id, created_at, updated_at) ' +
       'values ($1, $2, $3, $4, $5, $6, $7, now(), now())')
     @connection.prepare('select_category', 'select id, name from categories where lower(name) like lower($1)')
     @connection.prepare('insert_category', 'insert into categories (name, parent_id, is_master_category, ' +
@@ -74,7 +74,7 @@ class DbConnection
 
   private 
     def translate_type(type)
-      return (type == 'credit') ? 'c' : 'd'
+      return (type == 'credit') ? 1 : 0
     end
 
     def clear_hashes

@@ -7,14 +7,17 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<div class="container">
 <header>
-  <ul>
-    <li><%= link_to 'Categories', categories_path %></li>
-    <li><%= link_to 'Transactions', transactions_path %></li>
-    <li><%= link_to 'Accounts', accounts_path %></li>
-  </ul>
+  <nav class="navbar navbar-default">
+    <ul class="nav navbar-nav">
+      <li><%= link_to 'Categories', categories_path %></li>
+      <li><%= link_to 'Transactions', transactions_path %></li>
+      <li><%= link_to 'Accounts', accounts_path %></li>
+    </ul>
+  </nav>
 </header>
 <%= yield %>
-
+</div>
 </body>
 </html>

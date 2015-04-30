@@ -1,1 +1,23 @@
-<h1>Hello, Rails!</h1>
+<h1>Welcome to Budget Tracker</h1>
+<div class="row">
+  <div class="col-md-6">
+    <table class="table table-striped">
+      <tr>
+        <th>Month</th>
+        <th>Year</th>
+        <th class="text-right">Debits</th>
+        <th class="text-right">Credits</th>
+        <th class="text-right">Net Income</th>
+      </tr>
+      <% @report.each do |key, row| %>
+       <tr>
+         <td><%= Date::MONTHNAMES[row[:month]] %></td>
+         <td><%= row[:year].to_i %></td>
+         <td class="text-right"><%= number_to_currency(row[:debits]) %></td>
+         <td class="text-right"><%= number_to_currency(row[:credits]) %></td>
+         <td class="text-right"><%= number_to_currency(row[:credits] - row[:debits]) %></td>
+       </tr>
+      <% end %> 
+    </table>
+  </div>
+</div>

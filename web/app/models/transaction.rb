@@ -8,7 +8,12 @@ class Transaction < ActiveRecord::Base
                           length: { minimum: 3 }
   validates :category, presence: true
 
-  def transaction_type
-    return (:type == 'd') ? 'debit' : 'credit'
+  enum transaction_type: [ :debit, :credit ]
+
+  def self.monthly_summary(start_date, end_date)
+    return Transaction.select("date_part('month', date) as month, date_part('year', date) as year, transaction_type, sum(amount) as total")
+      .where("date >= :start_date and date < :end_date", { start_date: start_date, end_date: end_date })
+      .group("year, month, transaction_type")
+      .order('year, month, transaction_type')
   end
 end
