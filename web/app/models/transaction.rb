@@ -16,4 +16,15 @@ class Transaction < ActiveRecord::Base
       .group("year, month, transaction_type")
       .order('year, month, transaction_type')
   end
+
+  def self.top_spending_categories(month, year, record_limit)
+    return Transaction.select("categories.name, categories.id, sum(transactions.amount) as total")
+      .joins(:category)
+      .where("date_part('month', transactions.date) = :month AND " + 
+                "date_part('year', transactions.date) = :year", 
+                { month: month, year: year })
+      .group('categories.name, categories.id')
+      .order('total desc')
+      .limit(record_limit)
+  end
 end

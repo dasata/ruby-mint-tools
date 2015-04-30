@@ -10,5 +10,7 @@ class WelcomeController < ApplicationController
       @report[key] = { month: row.month, year: row.year } unless @report.has_key?(key)
       @report[key][row.debit? ? :debits : :credits] = row.total
     end
+
+    @top_spending = Transaction.top_spending_categories(current_month.month, current_month.year, 10)
   end
 end
