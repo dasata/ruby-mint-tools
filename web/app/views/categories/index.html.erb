@@ -1,15 +1,18 @@
-<h1>All Transaction Categories</h1>
+<h1>All Master Categories</h1>
 <% if @categories.any? %>
-  <table>
+  <table class="table table-condensed">
     <tr>
       <th>ID</th>
       <th>Name</th>
+      <th class="text-center">Subcategories</th>
+      <th></th>
       <th></th>
     </tr>
     <% @categories.each do |category| %>
       <tr>
         <td><%= category.id %></td>
         <td><%= link_to category.name, category_path(category) %></td>
+        <td class="text-center"><%= category.subcategories.count %></td>
         <td><%= link_to 'Edit', edit_category_path(category) %></td>
         <td><%= link_to 'Delete', category_path(category), method: :delete, 
                         data: { confirm: 'Are you sure you want to delete this category?' } %></td>

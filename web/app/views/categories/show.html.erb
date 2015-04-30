@@ -1,19 +1,45 @@
 <p>
   <strong>Name:</strong>
   <%= @category.name %>
-  </p>
+</p>
+<p>
+  <strong>Parent Category:</strong>
+  <%= @category.parent.nil? ? 'None' : link_to(@category.parent.name, category_path(@category.parent)) %>
+</p>
+<p>
+  <strong>Child categories:</strong>
+  <% if @category.subcategories.any? %>
+    <ul>
+      <% @category.subcategories.each do |cat| %>
+        <li><%= link_to cat.name, category_path(cat) %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    None
+  <% end %>
+</p>
 <p>
   <strong># of transactions:</strong>
   <%= @category.transactions.count %>
 </p>
-<table>
-  <% @category.monthly_amounts.each do |set| %>
-    <tr>
-      <td><%= sprintf("%d/%d", set['month'], set['year']) %></td>
-      <td>$<%= set['total'] %>
-    </tr>
-  <% end %>
-</table>
+<% if @category.transactions.any? %>
+  <div class="row">
+    <div class="col-md-3">
+      <table class="table table-condensed">
+        <tr>
+          <th>Month</th>
+          <th class="text-right">Amount</th>
+        </tr>
+      <% @category.monthly_amounts.each do |set| %>
+        <tr>
+          <td><%= sprintf("%s %d", Date::MONTHNAMES[set['month']], set['year']) %></td>
+          <td class="text-right"><%= number_to_currency(set['total']) %>
+        </tr>
+      <% end %>
+     </table>
+   </div>
+  </div>
+<% end %>
 <p>
   <%= link_to 'Back to categories', categories_path %>
 </p>

@@ -20,7 +20,7 @@ options = GetoptLong.new(
 )
 
 config_filepath = nil
-tranasctions_filepath = nil
+transactions_filepath = nil
 db_connection_info = nil
 all_arguments_specified = false
 
@@ -68,11 +68,11 @@ end
 File.open(config_filepath) do |input_file|
   config = JSON.parse(input_file.readlines.join)
   db_connection_info = config['db']
-  tranasctions_filepath = config['input_file']
+  transactions_filepath = config['input_file']
 end
 
-if not File.exists?(tranasctions_filepath)
-  printf("Transaction input file '%s' does not exist.\n", tranasctions_filepath)
+if not File.exists?(transactions_filepath)
+  printf("Transaction input file '%s' does not exist.\n", transactions_filepath)
   exit 0
 end
 
@@ -82,7 +82,7 @@ connection.prepare_statements
 total_added = 0
 dedup = Dedupper.new
 begin
-  CSV.foreach(tranasctions_filepath, {:headers=>true}) do |row|
+  CSV.foreach(transactions_filepath, {:headers=>true}) do |row|
     date = row['Date']
     category = row['Category']
     amount = row['Amount'].to_f.round(2)

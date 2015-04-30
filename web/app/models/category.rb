@@ -7,13 +7,18 @@ class Category < ActiveRecord::Base
   validates :name, presence: true,
                    length: { minimum: 3 }
 
+  def self.master_categories
+    return Category.where(parent_id: nil).order(:name)
+  end
+
   def monthly_amounts
     results = []
-    self.transactions.select('date_part(\'year\', date) as year', 'date_part(\'month\', date) as month', 'sum(amount) as monthly_total').group('date_part(\'year\', date), date_part(\'month\', date)').each do |row|
-      results.push({ 'year' => row['year'], 'month' => row['month'], 'total' => row['monthly_total'] })
+    self.transactions.select('date_part(\'year\', date) as year', 'date_part(\'month\', date) as month', 'sum(amount) as monthly_total')
+      .group('year, month')
+      .order('year desc, month desc')
+      .each do |row|
+        results.push({ 'year' => row['year'], 'month' => row['month'], 'total' => row['monthly_total'] })
     end
-
-    results.sort_by! { |obj| Date.new(obj['year'], obj['month']) }   
 
     return results
   end

@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
   def index
-    @categories = Category.all
+    @categories = Category.master_categories
   end
 
   def show
@@ -44,7 +44,7 @@ class CategoriesController < ApplicationController
 
   private 
     def category_params
-      return params.require(:category).permit(:name)
+      return params.require(:category).permit(:name, :parent_id)
     end
 
     def get_selected_category

@@ -14,7 +14,11 @@
   <p>
     <%= f.label :name %><br>
     <%= f.text_field :name %>
-  </p>
+    </p>
+    <p>
+      <%= f.label 'Child Of' %>
+      <%= f.collection_select(:parent_id, Category.all.order(:name), :id, :name, prompt: "-- none --") %> 
+    </p>
   <p>
     <%= f.submit %>
   </p>

@@ -26,8 +26,9 @@ class DbConnection
       'category_id, original_description, transaction_type, account_id, created_at, updated_at) ' +
       'values ($1, $2, $3, $4, $5, $6, $7, now(), now())')
     @connection.prepare('select_category', 'select id, name from categories where lower(name) like lower($1)')
-    @connection.prepare('insert_category', 'insert into categories (name, parent_id, is_master_category, ' +
-      'created_at, updated_at) values ($1, null, false, now(), now()) RETURNING ID;')
+    @connection.prepare('insert_category', 'insert into categories (name, parent_id, ' +
+      'created_at, updated_at) values ($1, null, now(), now()) RETURNING ID;')
+    @connection.prepare('update_parent_category', 'update categories set parent_id = $1 where id = $2;')
     @connection.prepare('select_account', 'select id, name from accounts where lower(name) like lower($1)')
     @connection.prepare('insert_account', 'insert into accounts (name, created_at, updated_at) ' +
       'values ($1, now(), now()) RETURNING ID;')
@@ -70,6 +71,10 @@ class DbConnection
         account_id
       ]
     )
+  end
+
+  def update_parent_category(category_id, parent_category_id) 
+    result = @connection.exec_prepared('update_parent_category', [parent_category_id, category_id])
   end
 
   private 
