@@ -1,0 +1,14 @@
+<ol class="breadcrumb">
+  <li><%= link_to 'Categories', categories_path %></li>
+  <% 
+    array = [@category]
+    parent = @category.parent
+    while not parent.nil? do
+      array.unshift(parent)
+      parent = parent.parent
+    end
+
+    array.each do |cat| %>
+      <li><%= link_to cat.name, category_path(cat) %></li>
+    <% end %>
+</ol>

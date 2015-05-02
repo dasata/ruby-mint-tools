@@ -43,8 +43,11 @@ class CategoriesController < ApplicationController
   end
 
   def monthly_transactions
+    month = monthly_transactions_params[:month].to_i
+    year = monthly_transactions_params[:year].to_i
     @category = get_selected_category 
-    @transactions = @category.transactions_for_month(monthly_transactions_params[:month], monthly_transactions_params[:year])
+    @transactions = @category.transactions_for_month(month, year)
+    @month_label = sprintf("%s %d", Date::MONTHNAMES[month], year)
   end
 
   private 
