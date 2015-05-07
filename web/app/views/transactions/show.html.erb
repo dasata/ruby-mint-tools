@@ -4,15 +4,22 @@
 </p>
 <p>
   <strong>Category:</strong>
-  <%= @transaction.category.name %>
-</p>
+  <%= link_to @transaction.category.name, @transaction.category %>
+  </p>
+<p>
+  <strong>Type:</strong>
+  <%= @transaction.transaction_type.humanize %>
 <p>
   <strong>Amount:</strong>
-  $<%= @transaction.amount %>
+  <%= number_to_currency(@transaction.amount) %>
 </p>
 <p>
   <strong>Description:</strong>
   <%= @transaction.description %>
+</p>
+<p>
+  <strong>Original Description:</strong>
+  <%= @transaction.original_description %>
 </p>
 <p>
   <%= link_to 'Back to transactions', transactions_path %>

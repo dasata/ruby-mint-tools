@@ -5,15 +5,23 @@
     <tr>
       <th>Date</th>
       <th>Description</th>
-      <th>Amount</th>
+      <th class="text-right">Amount</th>
     </tr>
-    <% @transactions.each do |t| %>
+    <% total = 0
+       @transactions.each do |t| %>
       <tr>
         <td><%= t.date %></td>
-        <td><%= t.description %></td>
-        <td><%= number_to_currency(t.amount) %></td>
+        <td><%= link_to t.description, transaction_path(t) %></td>
+        <td class="text-right amt_<%= t.transaction_type %>"><%= number_to_currency(t.amount) %></td>
       </tr>
-    <% end %>
+    <% total += t.amount        
+    end %>
+    <tfoot>
+      <tr>
+        <td colspan="2"><strong>Total</strong></td>
+        <td class="text-right"><strong><%= number_to_currency(total) %></strong></td>
+      </tr>
+    </tfoot>
   </table>
 <% else %>
   <p>There are no transactions for this month.</p>

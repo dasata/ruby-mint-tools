@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :categories, :transactions, :accounts
 
   get '/categories/:id/transactions/:year/:month', to: 'categories#monthly_transactions', as: :monthly_category_transactions
+  get '/transactions/page/:page', to: 'transactions#index'
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'

@@ -6,6 +6,7 @@
       <th>Date</th>
       <th>Category</th>
       <th>Description</th>
+      <th class="text-right">Amount</th>
       <th></th>
       <th></th>
     </tr>
@@ -15,12 +16,14 @@
         <td><%= transaction.date %></td>
         <td><%= link_to transaction.category.name, category_path(transaction.category) %></td>
         <td><%= link_to transaction.description, transaction_path(transaction) %></td>
+        <td class="text-right amt_<%= transaction.transaction_type %>"><%= number_to_currency(transaction.amount) %></td>
         <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
         <td><%= link_to 'Delete', transaction_path(transaction), method: :delete, 
                         data: { confirm: 'Are you sure you want to delete this transaction?' } %></td>
       </tr>
     <% end %>
   </table>
+  <%= will_paginate @transactions, renderer: BootstrapPagination::Rails %>
 <% else %>
   <p>There are no transactions in the database!</p>
 <% end %>
