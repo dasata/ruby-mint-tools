@@ -1,6 +1,6 @@
 <h1>All Transactions</h1>
 <% if @transactions.any? %>
-  <table>
+  <table class="table table-striped">
     <tr>
       <th>ID</th>
       <th>Date</th>
@@ -13,7 +13,7 @@
       <tr>
         <td><%= transaction.id %></td>
         <td><%= transaction.date %></td>
-        <td><%= transaction.category.name %></td>
+        <td><%= link_to transaction.category.name, category_path(transaction.category) %></td>
         <td><%= link_to transaction.description, transaction_path(transaction) %></td>
         <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
         <td><%= link_to 'Delete', transaction_path(transaction), method: :delete, 
