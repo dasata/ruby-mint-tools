@@ -3,13 +3,28 @@
   <tr>
     <th>ID</th>
     <th>Name</th>
-    <th>Amount</th>
+    <th class="text-right">Debits</th>
+    <th class="text-right">Credits</th>
+    <th class="text-right">Net</th>
   </tr>
-  <% @categories.each do |cat| %>
+  <% debits = 0
+     credits = 0
+     @categories.each do |cat| 
+       debits += cat.debits
+       credits += cat.credits
+   %>
     <tr>
       <td><%= cat.id %></td>
       <td><%= cat.name %></td>
-      <td><%= number_to_currency(cat.total) %></td>
+      <td class="text-right amt_debit"><%= number_to_currency(cat.debits) %></td>
+      <td class="text-right amt_credit"><%= number_to_currency(cat.credits) %></td>
+      <td class="text-right"><%= number_to_currency(cat.total) %></td>
     </tr>
   <% end %>
+  <tr>
+    <td colspan="2"><strong>Total</strong></td>
+    <td class="text-right amt_debit"><strong><%= number_to_currency(debits) %></strong></td>
+    <td class="text-right amt_credit"><strong><%= number_to_currency(credits) %></strong></td>
+    <td class="text-right"><strong><%= number_to_currency(credits - debits) %></td>
+  </tr>
 </table>

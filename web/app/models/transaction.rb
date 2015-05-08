@@ -1,5 +1,5 @@
-class Transaction < ActiveRecord::Base
-  belongs_to :category
+class Transaction < ActiveRecord::Base 
+  belongs_to :category 
   belongs_to :account
   validates :date, presence: true
   validates :amount, presence: true,
@@ -19,7 +19,10 @@ class Transaction < ActiveRecord::Base
   end
 
   def self.category_summary(year, month)
-    Transaction.select("categories.name, categories.id, sum(transactions.amount) as total")
+    Transaction.select("categories.name, categories.id, SUM(CASE WHEN transactions.transaction_type = 0 " + 
+                       "THEN transactions.amount ELSE 0 END) AS debits, SUM(CASE WHEN transactions.transaction_type = 1 " +
+                       "THEN transactions.amount ELSE 0 END) AS credits, SUM(CASE WHEN transactions.transaction_type = 0 " + 
+                       "THEN -transactions.amount ELSE transactions.amount end) AS total")
       .joins(:category)
       .where("date_part('month', transactions.date) = :month AND " + 
                "date_part('year', transactions.date) = :year AND " + 
