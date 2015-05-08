@@ -11,6 +11,6 @@ class WelcomeController < ApplicationController
       @report[key][row.debit? ? :debits : :credits] = row.total
     end
 
-    @top_spending = Transaction.top_spending_categories(current_month.month, current_month.year, 10)
+    @top_spending = Transaction.top_spending_categories(current_month.year, current_month.month, 10)
   end
 end

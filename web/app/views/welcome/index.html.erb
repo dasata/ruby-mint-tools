@@ -12,7 +12,7 @@
       </tr>
       <% @report.each do |key, row| %>
        <tr>
-         <td><%= Date::MONTHNAMES[row[:month]] %></td>
+         <td><%= link_to Date::MONTHNAMES[row[:month]], monthly_summary_path({month: row[:month].to_i, year: row[:year].to_i}) %></td>
          <td><%= row[:year].to_i %></td>
          <td class="text-right"><%= number_to_currency(row[:debits]) %></td>
          <td class="text-right"><%= number_to_currency(row[:credits]) %></td>

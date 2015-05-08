@@ -1,0 +1,15 @@
+<h1>Activity for <%= Date::MONTHNAMES[@month] %> <%= @year %></h1>
+<table class="table table-striped">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Amount</th>
+  </tr>
+  <% @categories.each do |cat| %>
+    <tr>
+      <td><%= cat.id %></td>
+      <td><%= cat.name %></td>
+      <td><%= number_to_currency(cat.total) %></td>
+    </tr>
+  <% end %>
+</table>
